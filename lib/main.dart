@@ -1,4 +1,6 @@
+import 'package:quiver/async.dart';
 import 'package:flutter/material.dart';
+
 
 void main() => runApp(const MyApp());
 
@@ -26,6 +28,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
           title: const Text('Muistipeli'),
@@ -50,6 +53,28 @@ class Screen2 extends StatefulWidget {
 }
 
 class _Screen2State extends State<Screen2> {
+
+  final int _start = 10;
+  int _current = 10;
+
+  void _startTimer() {
+
+      CountdownTimer countDownTimer = CountdownTimer(
+      Duration(seconds: _start),
+      const Duration(seconds: 1),
+    );
+
+    var sub = countDownTimer.listen(null);
+    sub.onData((duration) {
+      setState(() { _current = _start - duration.elapsed.inSeconds; });
+    });
+
+    sub.onDone(() {
+      print("Done");
+      sub.cancel();
+    });
+    }
+
   @override
   Widget build(BuildContext context) {
 
@@ -58,6 +83,10 @@ class _Screen2State extends State<Screen2> {
           title: const Text('Sanamuistipeli - alkuruutuun napsauttamalla reunassa'),
           backgroundColor: Colors.blueAccent),
       body: Column(children: <Widget>[const Center(child: Image(image: AssetImage('assets/karkki.png')),),
+        
+        Text("$_current"),
+        ElevatedButton(onPressed: _startTimer, child: const Text("Aloita")),
+        
         ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop(MaterialPageRoute(builder: (context)=>const Home()));
