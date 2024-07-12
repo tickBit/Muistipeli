@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'package:quiver/async.dart';
 import 'package:flutter/material.dart';
 
@@ -56,7 +57,10 @@ class _Screen2State extends State<Screen2> {
 
   final int _start = 10;
   int _current = 10;
+  int pic = 0;
 
+  final List<String> picture = ["assets/karkki.png", "assets/leipa.png", "assets/pilvi.png", "assets/putki.png"];
+  
   void _startTimer() {
 
       CountdownTimer countDownTimer = CountdownTimer(
@@ -70,6 +74,8 @@ class _Screen2State extends State<Screen2> {
     });
 
     sub.onDone(() {
+      pic += 1;
+      if (pic == 4) pic = 0;
       print("Done");
       sub.cancel();
     });
@@ -82,7 +88,7 @@ class _Screen2State extends State<Screen2> {
       appBar: AppBar(
           title: const Text('Sanamuistipeli - alkuruutuun napsauttamalla reunassa'),
           backgroundColor: Colors.blueAccent),
-      body: Column(children: <Widget>[const Center(child: Image(image: AssetImage('assets/karkki.png')),),
+      body: Column(children: <Widget>[const Center(child: Image(image: AssetImage(picture[pic])),),
         
         Text("$_current"),
         ElevatedButton(onPressed: _startTimer, child: const Text("Aloita")),
