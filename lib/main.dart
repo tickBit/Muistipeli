@@ -1,7 +1,5 @@
-import 'dart:core';
-import 'package:quiver/async.dart';
 import 'package:flutter/material.dart';
-
+import 'package:muistipeli/screen2.dart';
 
 void main() => runApp(const MyApp());
 
@@ -27,80 +25,37 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  late ImageProvider startPic;
+
+  // ignore: non_constant_identifier_names
+  final List<String> old_person = ["assets/old_lady_small.jpg", "assets/old_gentleman_small.jpg"];
+
   @override
   Widget build(BuildContext context) {
+
+    int rndNum = DateTime.now().millisecondsSinceEpoch % 2;
+    if (rndNum == 0) {
+      startPic = AssetImage(old_person[0]);
+    } else {
+      startPic = AssetImage(old_person[1]);
+    }
 
     return Scaffold(
       appBar: AppBar(
           title: const Text('Muistipeli'),
           backgroundColor: Colors.teal),
-      body: Center(
+      body: Column(children: <Widget>[
+          Image(image: startPic),
+        Center(
         child: ElevatedButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const Screen2()));
           },
-          child: const Text('GO TO SCREEN 2'),
+          child: const Text('Pelaa sanamuistipeliä'),
         ),
       ),
-    );
-  }
-}
-class Screen2 extends StatefulWidget {
-  const Screen2({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _Screen2State createState() => _Screen2State();
-}
-
-class _Screen2State extends State<Screen2> {
-
-  final int _start = 10;
-  int _current = 10;
-  int pic = 0;
-
-  final List<String> picture = ["assets/karkki.png", "assets/leipa.png", "assets/pilvi.png", "assets/putki.png"];
-  
-  void _startTimer() {
-
-      CountdownTimer countDownTimer = CountdownTimer(
-      Duration(seconds: _start),
-      const Duration(seconds: 1),
-    );
-
-    var sub = countDownTimer.listen(null);
-    sub.onData((duration) {
-      setState(() { _current = _start - duration.elapsed.inSeconds; });
-    });
-
-    sub.onDone(() {
-      pic += 1;
-      if (pic == 4) pic = 0;
-      print("Done");
-      sub.cancel();
-    });
-    }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-          title: const Text('Sanamuistipeli - alkuruutuun napsauttamalla reunassa'),
-          backgroundColor: Colors.blueAccent),
-      body: Column(children: <Widget>[const Center(child: Image(image: AssetImage(picture[pic])),),
-        
-        Text("$_current"),
-        ElevatedButton(onPressed: _startTimer, child: const Text("Aloita")),
-        
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop(MaterialPageRoute(builder: (context)=>const Home()));
-
-          },
-          child: const Text('GO TO HOME'),
-      ),
-    ]),
-    );
+    ])
+  );
   }
 }
