@@ -169,7 +169,7 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
 
           Center(child: Column(children: <Widget>[
           
-          if (!ask) Center(child:  Image(image: _img)),
+          if (!ask) Center(child:  Image(width: deviceWidth, height: deviceHeight * 0.2, image: _img)),
           
           SizedBox(child:
           Container(
