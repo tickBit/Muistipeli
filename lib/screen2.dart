@@ -14,6 +14,10 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
 
   late Animation<double> animation;
   late AnimationController _controller;
+
+  late double deviceWidth;
+  late double deviceHeight;
+
   int pic = 0;
   late int round;
   late double width;
@@ -151,6 +155,9 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
+        deviceWidth = MediaQuery.sizeOf(context).shortestSide;
+        deviceHeight = MediaQuery.sizeOf(context).longestSide;
+
         const spacer = Padding(padding: EdgeInsets.all(4));
         const spacerBig = Padding(padding: EdgeInsets.all(8));
 
@@ -167,7 +174,7 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
           SizedBox(child:
           Container(
           width: timeline,
-          height: 20,
+          height: deviceHeight * 0.025,
           decoration: BoxDecoration(
             color: Colors.blue[900],
           ))),
@@ -195,20 +202,20 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
           ]),
           if (congratulations == false && answered == true) Column(children: [
             spacerBig,
-            Image(width: 120, image: AssetImage(picture[instances[0]])),
+            Image(width: deviceWidth * 0.18, image: AssetImage(picture[instances[0]])),
             spacerBig,
-            Image(width: 120, image: AssetImage(picture[instances[1]])),
+            Image(width: deviceWidth * 0.18, image: AssetImage(picture[instances[1]])),
             spacerBig,
-            Image(width: 120, image: AssetImage(picture[instances[2]])),
+            Image(width: deviceWidth * 0.18, image: AssetImage(picture[instances[2]])),
             spacerBig,
-            Image(width: 120, image: AssetImage(picture[instances[3]])),
+            Image(width: deviceWidth * 0.18, image: AssetImage(picture[instances[3]])),
             spacerBig,
-            Image(width: 120, image: AssetImage(picture[instances[4]])),
+            Image(width: deviceWidth * 0.18, image: AssetImage(picture[instances[4]])),
             spacerBig,
               ElevatedButton(onPressed: () => resetGame(), child: const Text("Yritä uudelleen samaa tehtävää")),
               spacer,
-              ElevatedButton(onPressed: () => Navigator.pushReplacement(context,MaterialPageRoute(
-            builder: (BuildContext context) => super.widget)), child: const Text("Pelaa uusi peli"))
+              ElevatedButton(onPressed: () => {congratulations = false, ask = false, answered = false, Navigator.pushReplacement(context,MaterialPageRoute(
+            builder: (BuildContext context) => super.widget))}, child: const Text("Pelaa uusi peli"))
           ]),
           ])));
   

@@ -1,3 +1,5 @@
+import 'dart:math';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:muistipeli/screen2.dart';
 
@@ -27,14 +29,19 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   late ImageProvider startPic;
+  late double deviceWidth;
 
   // ignore: non_constant_identifier_names
-  final List<String> old_person = ["assets/old_lady_small.jpg", "assets/old_gentleman_small.jpg"];
+  final List<String> old_person = ["assets/old_lady.jpg", "assets/old_gentleman.jpg"];
 
   @override
   Widget build(BuildContext context) {
 
-    int rndNum = DateTime.now().millisecondsSinceEpoch % 2;
+    deviceWidth = MediaQuery.sizeOf(context).shortestSide;
+
+    var rnd = Random();
+    int rndNum = rnd.nextInt(2);
+
     if (rndNum == 0) {
       startPic = AssetImage(old_person[0]);
     } else {
@@ -45,17 +52,20 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
           title: const Text('Muistipeli'),
           backgroundColor: Colors.teal),
-      body: Column(children: <Widget>[
-          Image(image: startPic),
-        Center(
-        child: ElevatedButton(
+      body: Center(child: Column(children: <Widget>[
+          const Padding(padding: EdgeInsets.all(16)),
+
+          Image(width: deviceWidth * 0.75, image: startPic),
+          const Padding(padding: EdgeInsets.all(10)),
+
+          ElevatedButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const Screen2()));
           },
           child: const Text('Pelaa sanamuistipeliä'),
-        ),
+        )],
       ),
-    ])
+    )
   );
   }
 }
