@@ -42,7 +42,7 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# exclude all platforms... (desired platform(s) must be enabled from VS Code)
+# exclude all platforms... (desired platform(s) must be enabled from VS Code), this project is designed mobile platforms in mind
 /windows/
 /web/
 /macos/
