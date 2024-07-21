@@ -30,7 +30,7 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
   int answer = 0;
   final List<int> originalNumbers = [0,1,2,3,4];
 
-  final List<String> picture = ["assets/karkki.png", "assets/leipa.png", "assets/pilvi.png", "assets/putki.png", "assets/omena.png"];
+  final List<String> picture = ["assets/karkki.jpg", "assets/leipa.jpg", "assets/pilvi.jpg", "assets/putki.jpg", "assets/omena.jpg"];
   List<ImageProvider> image = [];
 
   List<String> questions = ["Monentenako KARKKI esiintyi?", "Monentenako LEIPÄ esiintyi?", "Monentenako PILVI esiintyi?", "Monentenako PUTKI esiintyi?", "Monentenako OMENA esiintyi?"];
