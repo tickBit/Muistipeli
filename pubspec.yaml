@@ -91,11 +91,11 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
-    - assets/karkki.png
-    - assets/leipa.png
-    - assets/pilvi.png
-    - assets/putki.png
-    - assets/omena.png
+    - assets/karkki.jpg
+    - assets/leipa.jpg
+    - assets/pilvi.jpg
+    - assets/putki.jpg
+    - assets/omena.jpg
     - assets/old_lady.jpg
     - assets/old_gentleman.jpg
     
