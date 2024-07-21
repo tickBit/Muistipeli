@@ -41,3 +41,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# exclude all platforms... (desired platform(s) must be enabled from VS Code)
+/windows/
+/web/
+/macos/
+/linux/
+/ios/
+/android/
