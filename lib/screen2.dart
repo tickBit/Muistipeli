@@ -31,13 +31,22 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
   final List<int> originalNumbers = [0,1,2,3,4];
 
   final List<String> picture = ["assets/karkki.png", "assets/leipa.png", "assets/pilvi.png", "assets/putki.png", "assets/omena.png"];
+  List<ImageProvider> image = [];
 
   List<String> questions = ["Monentenako KARKKI esiintyi?", "Monentenako LEIPÄ esiintyi?", "Monentenako PILVI esiintyi?", "Monentenako PUTKI esiintyi?", "Monentenako OMENA esiintyi?"];
+
   late ImageProvider _img;
+
   late double timeline;
   int rightAnswer = -1;
   late List<int> numbers;
   var rnd = Random();
+
+  void preloadImages() {
+    for (int i = 0; i < picture.length; i++) {
+      image.add(AssetImage(picture[i]));  
+    }
+  }
 
   void resetGame() {
     setState(() {
@@ -51,7 +60,7 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
 
       pic = instances[0];
       pic = originalNumbers[pic];
-      _img = AssetImage(picture[pic]);
+      _img = image[pic];
     });
   }
 
@@ -72,9 +81,15 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
+    preloadImages();
+
     instances = [];
     numbers = [0,1,2,3,4];
+
+    // draw the first picture
     pic = rnd.nextInt(numbers.length);
+
+    // draw what is the answer at the end for the question
     answer = rnd.nextInt(numbers.length);
 
     instances.add(pic);
@@ -95,7 +110,7 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
 
     numbers.removeWhere( (item) => item == pic );
     
-    _img = AssetImage(picture[pic]);
+    _img = image[pic];
     
 
     _controller = AnimationController(
@@ -135,7 +150,7 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
                   }
 
                   timeline = 500;
-                  _img = AssetImage(picture[pic]);
+                  _img = image[pic];
                 
               }
           }
@@ -164,7 +179,7 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
         return Scaffold(appBar: AppBar(
           title: const Text('Sanamuistipeli'),
           backgroundColor: Colors.teal),
-
+          
           body:
 
           Center(child: Column(children: <Widget>[
@@ -202,15 +217,15 @@ class _Screen2State extends State<Screen2> with SingleTickerProviderStateMixin {
           ]),
           if (congratulations == false && answered == true) Column(children: [
             spacerBig,
-            Image(width: deviceWidth * 0.18, image: AssetImage(picture[instances[0]])),
+            Image(width: deviceWidth * 0.18, image: image[instances[0]]),
             spacerBig,
-            Image(width: deviceWidth * 0.18, image: AssetImage(picture[instances[1]])),
+            Image(width: deviceWidth * 0.18, image: image[instances[1]]),
             spacerBig,
-            Image(width: deviceWidth * 0.18, image: AssetImage(picture[instances[2]])),
+            Image(width: deviceWidth * 0.18, image: image[instances[2]]),
             spacerBig,
-            Image(width: deviceWidth * 0.18, image: AssetImage(picture[instances[3]])),
+            Image(width: deviceWidth * 0.18, image: image[instances[3]]),
             spacerBig,
-            Image(width: deviceWidth * 0.18, image: AssetImage(picture[instances[4]])),
+            Image(width: deviceWidth * 0.18, image: image[instances[4]]),
             spacerBig,
               ElevatedButton(onPressed: () => resetGame(), child: const Text("Yritä uudelleen samaa tehtävää")),
               spacer,

@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:muistipeli/screen2.dart';
 
@@ -49,6 +48,7 @@ class _HomeState extends State<Home> {
     }
 
     return Scaffold(
+
       appBar: AppBar(
           title: const Text('Muistipeli'),
           backgroundColor: Colors.teal),
